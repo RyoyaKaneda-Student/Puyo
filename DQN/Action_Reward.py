@@ -14,6 +14,7 @@ from Game.game import Game, Operation, M_Operation
 from Game.puyo import Puyo, Puyopuyo
 from Game.puyo import reset as PuyoReset
 
+
 class ActionRewards:
 
     def __init__(self, g: Game):
@@ -80,12 +81,12 @@ class ActionRewards:
         if g.batankyu:
             done = True
             reward = reward - 1
-            return None, reward, done, {'flame':flame}  # 行動後の状態、reward,ゲーム終了フラグ
+            return None, reward, done, {'flame': flame}  # 行動後の状態、reward,ゲーム終了フラグ
         else:
             reward = reward + 1
 
         if all_flame + flame >= 18000:
             done = True
-            return None, reward, done, {'flame':flame}  # 行動後の状態、reward,ゲーム終了フラグ
+            return None, reward, done, {'flame': flame}  # 行動後の状態、reward,ゲーム終了フラグ
 
-        return self.get_state(), reward, done, {'flame':flame}  # 行動後の状態、reward,ゲーム終了フラグ
+        return self.get_state(), reward, done, {'flame': flame}  # 行動後の状態、reward,ゲーム終了フラグ

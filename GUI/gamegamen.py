@@ -60,7 +60,7 @@ class Masu(pygame.sprite.Sprite):
 
 
 class GameGamen():
-    def __init__(self,g:Game = None):
+    def __init__(self, g: Game = None):
         global usePUYOCOLOR
         if g is None:
             g = Game()

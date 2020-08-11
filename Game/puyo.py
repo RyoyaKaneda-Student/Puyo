@@ -6,6 +6,7 @@ def uid():
     n = n + 1
     return n
 
+
 def reset():
     global n
     n = 0

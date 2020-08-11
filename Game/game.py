@@ -82,6 +82,7 @@ class Operation:
     def copy(self):
         return Operation(self.right, self.left, self.down, self.turn_right, self.turn_left)
 
+
 @dataclass
 class M_Operation:
     side: int = 3  # 1~6
@@ -107,7 +108,7 @@ class Game:
         self.turn_end = False
         self.batankyu = False
 
-        self.rensa_point  = 0
+        self.rensa_point = 0
         self.rakka_point = 0
         self.zenkesi_point = 0
 
@@ -300,10 +301,10 @@ class Game:
                     operation.down = True
 
             while m_operation.side > 3:
-                operations[m_operation.side-4].right = True
+                operations[m_operation.side - 4].right = True
                 m_operation.side = m_operation.side - 1
             while m_operation.side < 3:
-                operations[2-m_operation.side].left = True
+                operations[2 - m_operation.side].left = True
                 m_operation.side = m_operation.side + 1
 
             if m_operation.turn == 1:

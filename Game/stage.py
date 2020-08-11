@@ -12,12 +12,12 @@ class Puyobox():
         self.right: Puyobox = None
         self.up: Puyobox = None
         self.down: Puyobox = None
-        self.position:Position = None
+        self.position: Position = None
 
     def isempty(self):
         return self._puyo is None or isinstance(self._puyo, In_position)
 
-    def set_position(self,position):
+    def set_position(self, position):
         self.position = position
 
     def set_puyo(self, puyo: Puyo):
@@ -86,7 +86,7 @@ class Position:
         self.y += y
         return self
 
-    def dif(self,x,y):
+    def dif(self, x, y):
         self.x -= x
         self.y -= y
         return self
@@ -145,8 +145,8 @@ class PuyoColection():
                 return title, values
         return None, None
 
-    def delete(self, puyo:Puyo):
-        if self.puyo_to_box.pop(puyo,None) is not None:
+    def delete(self, puyo: Puyo):
+        if self.puyo_to_box.pop(puyo, None) is not None:
             title, values = self.find_set(puyo)
             conections = self.puyo_conections[puyo.get_puyo()]
             if title is not None:
@@ -174,7 +174,7 @@ class PuyoColection():
                     del_set = self.puyo_conections[puyo_id][title]
                     del_puyoset = del_puyoset | del_set
                     del_puyo_conections[puyo_id][title] = del_set
-        return del_puyoset,del_puyo_conections
+        return del_puyoset, del_puyo_conections
 
     def delete_set(self):
         del_puyoset = set()
@@ -187,7 +187,7 @@ class PuyoColection():
                     del_set = self.puyo_conections[puyo_id].pop(title)
                     del_puyoset = del_puyoset | del_set
                     del_puyo_conections[puyo_id][title] = del_set
-        return del_puyoset,del_puyo_conections
+        return del_puyoset, del_puyo_conections
 
     def titles(self, color_index):
         return self.puyo_conections[color_index].keys()
@@ -197,7 +197,6 @@ class stage:
     def __init__(self, weight: int, height: int, in_position: int, color_len=4):
         self.width = weight + 2
         self.height = height + 1
-
 
         self._stage: list[list[Puyobox]] = [[Puyobox.dummy()] + [Puyobox() for _ in range(weight)] + [Puyobox.dummy()]
                                             for j in range(height)]
@@ -235,11 +234,11 @@ class stage:
         return stage_iter
 
     def set_in(self, puyopuyo: Puyopuyo):
-        self._puyopuyo:Puyopuyo = puyopuyo
-        self._puyo_position:Position = Position(self.in_position, 1)
+        self._puyopuyo: Puyopuyo = puyopuyo
+        self._puyo_position: Position = Position(self.in_position, 1)
         for x, y, puyo in puyopuyo.iteration():
             if isinstance(puyo, In_position):
-                self._puyo_position.add(-x, -y+0.5)
+                self._puyo_position.add(-x, -y + 0.5)
                 puyopuyo._puyopuyo[y][x] = None
 
         self.sechicount = 0
@@ -276,7 +275,7 @@ class stage:
                 puyopuyo.turn(-n)
                 p.dif(**zurashi)
 
-    def down(self, half = True):
+    def down(self, half=True):
         if half:
             self._puyo_position.y += 0.5
             return True
@@ -297,7 +296,7 @@ class stage:
                 return False
         return True
 
-    def is_downable(self,middle_down=False):
+    def is_downable(self, middle_down=False):
         return self.is_moveable(0, 1, middle_down)
 
     def is_leftable(self):
@@ -321,7 +320,7 @@ class stage:
                     puyobox = self._stage[k - 1][x]
                     puyobox.set_puyo(puyo)
                     max_high = max(max_high, k - 1 - y)
-                    if not k == 1: # 最上行じゃないとき
+                    if not k == 1:  # 最上行じゃないとき
                         self.puyoColection.input(puyobox)
                     break
         return max_high
